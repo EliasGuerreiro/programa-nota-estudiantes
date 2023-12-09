@@ -1,0 +1,70 @@
+//programa Elias Guerreiro
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+const int NUM_ESTUDIANTES = 20;
+const int NUM_CALIFICACIONES = 3;
+
+// Función para cargar la nómina de estudiantes
+void cargar_Nomina(std::string cedulas[], std::string nombres[]) {
+    for (int i = 0; i < NUM_ESTUDIANTES; ++i) {
+        std::cout << "Ingrese la cédula del estudiante " << i + 1 << ": ";
+        std::cin >> cedulas[i];
+
+        std::cout << "Ingrese el nombre del estudiante " << i + 1 << ": ";
+        std::cin >> nombres[i];
+    }
+}//fin de funcion 1
+
+// Función para cargar las notas de los estudiantes
+void cargar_Notas(int notas[][NUM_CALIFICACIONES]) {
+    for (int i = 0; i < NUM_ESTUDIANTES; ++i) {
+        std::cout << "Ingrese las 3 calificaciones del estudiante " << i + 1 << ":\n";
+        for (int j = 0; j < NUM_CALIFICACIONES; ++j) {
+            std::cout << "Calificación " << j + 1 << ": ";
+            std::cin >> notas[i][j];
+        }
+    }
+}//fin de funcion 2
+
+// Función para calcular el promedio de notas
+void calcular_Promedio(const int notas[][NUM_CALIFICACIONES], double promedios[]) {
+    for (int i = 0; i < NUM_ESTUDIANTES; ++i) {
+        double suma = 0.0;
+        for (int j = 0; j < NUM_CALIFICACIONES; ++j) {
+            suma += notas[i][j];
+        }
+        promedios[i] = suma / NUM_CALIFICACIONES;
+    }
+}//fin de funcion 3
+
+// Función para mostrar el boletín de calificaciones
+void mostrar_Boletin(const std::string cedulas[], const std::string nombres[],
+                    const int notas[][NUM_CALIFICACIONES], const double promedios[]) {
+    std::cout << std::setw(15) << "Cedula" << std::setw(15) << "Nombre"
+              << std::setw(15) << "Nota 1" << std::setw(15) << "Nota 2"
+              << std::setw(15) << "Nota 3" << std::setw(15) << "Promedio\n";
+
+    for (int i = 0; i < NUM_ESTUDIANTES; ++i) {
+        std::cout << std::setw(15) << cedulas[i] << std::setw(15) << nombres[i];
+        for (int j = 0; j < NUM_CALIFICACIONES; ++j) {
+            std::cout << std::setw(15) << notas[i][j];
+        }
+        std::cout << std::setw(15) << promedios[i] << "\n";
+    }
+}//fin de funcion 4
+
+int main() {
+    std::string cedulas[NUM_ESTUDIANTES];
+    std::string nombres[NUM_ESTUDIANTES];
+    int notas[NUM_ESTUDIANTES][NUM_CALIFICACIONES];
+    double promedios[NUM_ESTUDIANTES];
+
+    cargar_Nomina(cedulas, nombres);
+    cargar_Notas(notas);
+    calcular_Promedio(notas, promedios);
+    mostrar_Boletin(cedulas, nombres, notas, promedios);
+
+    return 0;
+}//fin del main
